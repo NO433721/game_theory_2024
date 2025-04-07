@@ -3,6 +3,33 @@
 from typing import Iterable
 import numpy as np
 
+
+class Node:
+    def __init__(self, player: str, actions: List[Any], children:List[Any], utility: Any, is_terminal: bool, info_set: Optional[str] = None) -> None:
+        self.player=player
+        self.actions=actions
+        self.children=children
+        self.utility=utility if is_terminal is True else None
+        self.is_terminal=is_terminal
+        self.info_set=info_set
+    
+class Game:
+    def __init__(self, root:Node) -> None:
+        self.root=root
+        self.information_sets: Dict[str, List[Node]] = {}
+        self._index_information_sets(root)
+
+    def _index_information_sets(self,node:Node):
+        if node.info_set:
+            self.information_sets.setdefault(node.info_set,[]).append(node)
+        
+        for child in node.children:
+            self._index_information_sets(child)
+
+    def get_info_set_nodes(self, info_set: str) -> List[Node]:
+        return self.information_sets.get(info_set, [])
+
+
 Game = ...
 Player = ...
 Strategy = ...

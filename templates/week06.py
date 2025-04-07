@@ -3,7 +3,47 @@
 from typing import Iterable
 import numpy as np
 
-Game = ...
+
+class node:
+    def __init__(self, player, actions=None, children=None, parent=None, info_set=None, is_terminal=False, payoff=None):
+        self.player=player
+        self.actions=actions
+        self.children=children
+        self.parent=parent
+        self.info_set=info_set
+        self.is_terminal=is_terminal
+
+        if is_terminal==True:
+            self.payoff=payoff
+
+class info_set:
+    def __init__(self):
+        pass
+
+
+
+class ExtensiveFormGame:
+    def __init__(self, root):
+        self.root=root
+        self.current=self.root
+    def actions(self,state):
+        return state.actions
+
+    def result(self,action,state):
+        return state.children[action]
+
+    def get_info_set(self,state):
+        return state.info_set
+    
+    def get_current_action(self):
+        pass
+
+    def current_result(self):
+        pass
+
+
+
+Game = ExtensiveFormGame
 Player = ...
 Strategy = ...
 
